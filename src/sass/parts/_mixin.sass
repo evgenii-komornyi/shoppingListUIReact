@@ -1,0 +1,25 @@
+@mixin transition($prop, $duration, $timing-funct)
+	-webkit-transition: $prop $duration $timing-funct
+	-o-transition: $prop $duration $timing-funct
+	transition: $prop $duration $timing-funct
+@mixin transformRotate3d($x, $y, $z, $a)
+	-webkit-transform: rotate3d($x, $y, $z, $a)
+	-ms-transform: rotate3d($x, $y, $z, $a)
+	-o-transform: rotate3d($x, $y, $z, $a)
+	transform: rotate3d($x, $y, $z, $a)
+
+@mixin border-radius($px)
+	-webkit-border-radius: $px
+	-moz-border-radius: $px
+	-ms-border-radius: $px
+	-o-border-radius: $px
+	border-radius: $px
+
+@mixin box-shadow($x, $y, $offset, $color, $inset: false)
+	@if $inset
+		-webkit-box-shadow: inset $x $y $offset $color
+		box-shadow: inset $x $x $offset $color
+	@else
+		-webkit-box-shadow: $x $y $offset $color
+		box-shadow: $x $y $offset $color
+		filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=#{$x}, OffY=#{$y}, Color='#{$color}')

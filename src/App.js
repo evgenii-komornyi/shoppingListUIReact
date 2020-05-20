@@ -4,7 +4,10 @@ import './sass/App.sass';
 
 import AddNewProduct from './components/addProduct.component';
 import Product from './components/product.component';
+import Cart from './components/cart.component';
 import ProductList from './components/product-list.component';
+import CartList from './components/cart-list.component';
+
 
 class App extends Component {
   render() {
@@ -60,7 +63,9 @@ const Navigation = (props) => {
                 <Route exact path="/" component={Home} />
                 <Route path="/products" component={ProductList} />
                 <Route path="/product/:id" component={Product} />
-                <Route exact path="/addNewProduct" component={AddNewProduct} /> 
+                <Route exact path="/addNewProduct" component={AddNewProduct} />
+                <Route path="/carts" component={CartList} /> 
+                <Route path="/cart/:id" component={Cart} />
               </Switch>
             </div>
           </div>

@@ -10,8 +10,11 @@ export default class ProductList extends Component {
     this.retrieveProducts = this.retrieveProducts.bind(this);
     this.refreshList = this.refreshList.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
 
     this.state = {
+      productID: null,
+      cartID: null,
       products: [],
       carts: []
     };
@@ -42,12 +45,32 @@ export default class ProductList extends Component {
   deleteProduct(id) {
     ProductDataService.delete(id)
       .then(response => {
-        alert("Product removed")
-        this.refreshList();
+        if (response.data.validationErrors != null) {
+          alert(response.data.validationErrors);
+        } else {
+          alert("Product removed")
+          this.refreshList();
+        }
       })
       .catch(e => {
         console.log(e);
       });
+  }
+
+  addProductToCart(productId, cartId, cartName) {
+    var data = {
+      productID: productId,
+      cartID: cartId
+    }
+
+    CartDataService.addToCart(data)
+      .then(response => {
+        if (response.data.validationErrors == null && response.data.dbErrors == null) {
+          alert("Product " + productId + " was added to cart " + cartName)
+        } else {
+          alert(response.data.validationErrors)
+        }
+      })
   }
 
   render() {
@@ -106,7 +129,7 @@ export default class ProductList extends Component {
                               Add new cart
                             </a>
                             {carts && carts.map(cart => (
-                              <a className="dropdown-item" key={cart.id} onClick={ () => this.addToCart(product.id, cart.id)}>
+                              <a className="dropdown-item" key={cart.id} onClick={ () => this.addProductToCart(product.id, cart.id, cart.name)}>
                                 {cart.name}
                               </a>
                             ))}
@@ -166,7 +189,9 @@ class CreateCart extends Component {
           validationErrors: response.data.validationErrors,
           dbErrors: response.data.dbErrors
         });
-        console.log(response.data)
+        if (this.state.validationErrors == null && this.state.dbErrors == null) {
+            window.location.reload()
+        }
       })
       .catch(e => {
         console.log(e);

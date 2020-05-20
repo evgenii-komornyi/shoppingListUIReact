@@ -12,7 +12,7 @@ export default class AddNewProduct extends Component {
     this.saveProduct = this.saveProduct.bind(this);
 
     this.state = {
-      productName: "Some",
+      productName: "",
       productCategory: "",
       productPrice: "",
       productDiscount: "",
@@ -26,7 +26,6 @@ export default class AddNewProduct extends Component {
   }
 
   onChangeName(e) {
-    e.preventDefault();
     this.setState({
       productName: e.target.value
     });
@@ -68,38 +67,15 @@ export default class AddNewProduct extends Component {
     ProductDataService.create(data)
       .then(response => {
         this.setState({
-          productName: response.data.productName,
-          productCategory: response.data.productCategory,
-          productPrice: response.data.productPrice,
-          productDiscount: response.data.productDiscount,
-          productDescription: response.data.productDescription,
-
-          validationErrors: response.data.validationErrors,
-          dbErrors: response.data.dbErrors
-        });
-        console.log(response.data);
-        if (validationErrors == null && dbErrors == null) {
+            validationErrors: response.data.validationErrors
+        })
+        if (this.state.validationErrors == null && this.state.dbErrors == null) {
             this.props.history.push('/products')
         }
       })
       .catch(e => {
         console.log(e);
       });
-  }
-
-  newProduct() {
-    this.setState({
-      productName: "",
-      productCategory: "",
-      productPrice: "",
-      productDiscount: "",
-      productDescription: "",
-
-      errors: {
-        validationErrors: {},
-        dbErrors: {}
-      }
-    });
   }
 
   render() {

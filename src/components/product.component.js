@@ -16,13 +16,18 @@ export default class Product extends Component {
 
     this.state = {
       currentProduct: {
-        name: "",
-        category: "",
-        regPrice: "",
-        discount: "",
-        description: ""
+        productName: "",
+        productCategory: "",
+        productPrice: "",
+        productDiscount: "",
+        productActPrice: "",
+        productDescription: ""
       },
-      message: ""
+      message: "",
+      errors: {
+        validationErrors: {},
+        dbErrors: {}
+      }
     };
   }
 
@@ -47,8 +52,8 @@ export default class Product extends Component {
     const category = e.target.value;
 
     this.setState(function(prevState) {
-      return {
-        currentProduct: {
+        return {
+          currentProduct: {
           ...prevState.currentProduct,
           productCategory: category
         }
@@ -97,7 +102,15 @@ export default class Product extends Component {
     ProductDataService.get(id)
       .then(response => {
         this.setState({
-          currentProduct: response.data.product
+          currentProduct: {
+            id:  response.data.product.id,
+            productName: response.data.product.name,
+            productCategory: response.data.product.category,
+            productPrice: response.data.product.regPrice,
+            productDiscount: response.data.product.discount,
+            productActPrice: response.data.product.actPrice,
+            productDescription: response.data.product.description
+          }
         });
         console.log(response.data);
       })
@@ -106,18 +119,22 @@ export default class Product extends Component {
       });
   }
 
-  
   updateProduct() {
     ProductDataService.update(
       this.state.currentProduct.id,
       this.state.currentProduct
     )
       .then(response => {
-        console.log(response.data);
         this.setState({
-          message: "The product was updated successfully!"
+          message: "The product was updated successfully!",
+          validationErrors: response.data.validationErrors,
+          dbErrors: response.data.dbErrors
         });
-        this.getProduct(this.props.match.params.id);
+        if (this.state.validationErrors == null && this.state.dbErrors == null) { 
+            alert(this.state.message);
+         
+            this.getProduct(this.props.match.params.id);
+        }
       })
       .catch(e => {
         console.log(e);
@@ -135,11 +152,7 @@ export default class Product extends Component {
       });
   }
 
-  readInputs() {
-
-  }
-
-    render() {
+  render() {
     const { currentProduct } = this.state;
 
     return (
@@ -159,7 +172,7 @@ export default class Product extends Component {
                         type="text"
                         className="form-control"
                         id="productName"
-                        defaultValue={currentProduct.name}
+                        value={currentProduct.productName}
                         onChange={this.onChangeName}
                       />
                     </div>
@@ -168,7 +181,7 @@ export default class Product extends Component {
                       <select
                         className="custom-select"
                         id="productCategory"
-                        defaultValue={currentProduct.category}
+                        value={currentProduct.productCategory}
                         onChange={this.onChangeCategory}
                       >
                         <option value="ALCOHOL">Alcohol</option>
@@ -188,7 +201,7 @@ export default class Product extends Component {
                         type="text"
                         className="form-control"
                         id="productPrice"
-                        defaultValue={currentProduct.regPrice}
+                        value={currentProduct.productPrice}
                         onChange={this.onChangePrice}
                       />
                    </div>
@@ -198,7 +211,7 @@ export default class Product extends Component {
                         type="text"
                         className="form-control"
                         id="productDiscount"
-                        defaultValue={currentProduct.discount}
+                        value={currentProduct.productDiscount}
                         onChange={this.onChangeDiscount}
                       />
                     </div>
@@ -210,7 +223,7 @@ export default class Product extends Component {
                         type="text"
                         className="form-control"
                         id="productActPrice"
-                        defaultValue={currentProduct.actPrice}
+                        value={currentProduct.productActPrice}
                         onChange={this.onChangeDiscount}
                         readOnly
                       />
@@ -223,7 +236,7 @@ export default class Product extends Component {
                         <textarea
                           className="form-control"
                           id="productDescription"
-                          defaultValue={currentProduct.description}
+                          value={currentProduct.productDescription}
                           onChange={this.onChangeDescription}
                         ></textarea>
                       </div>
@@ -244,10 +257,35 @@ export default class Product extends Component {
                 >
                   Update
                 </button>
-                <p>{this.state.message}</p>
-              </div>
+                { this.state.validationErrors ? (
+                <div className="errors">
+                    <ul>
+                        { this.state.validationErrors.map((validationError, index) => (
+                        <li key={index}>
+                            {validationError}
+                        </li>
+                        ))}
+                    </ul>
+                </div>      
+                ) : (
+                <div className="errors"></div>  
+                )}
+                { this.state.dbErrors ? (
+                <div className="errors">
+                    <ul>
+                        { this.state.dbErrors.map((dbError, index) => (
+                        <li key={index}>
+                            {dbError}
+                        </li>
+                        ))}
+                    </ul>
+                </div>                
+                ) : (
+                <div className="errors"></div>
+                )}
+                </div>
             </div>
-          </div>
+        </div>
         );
   }
 }

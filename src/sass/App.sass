@@ -1,19 +1,53 @@
 @import 'parts/color'
 @import 'parts/fonts'
 @import 'parts/mixin'
+@import 'parts/react-datez.css'
 $imp: !important
 $tra: transparent
 
+$accent: #00BCD4
+$primary: #212121
+$secondary: #727272
+
+$scoreRed: #F44336
+$scoreYellow: #FFEB3B
+$scoreGreen: #4CAF50
+
 body
-	background: $Black
+	background: $Snow
 
 h1, h4
-	color: $DeepSkyBlue
+	color: $Black
 	text-align: center
 	font-family: $titleFont
+	text-shadow: 0 0 1px #000
 
-label
-	color: $Snow
+input[type=radio]
+	position: absolute
+	opacity: 0
+	width: 0
+	height: 0
+
+input[type=radio] + img
+	cursor: pointer
+	width: 100px
+	margin-left: 10px
+
+input[type=radio]:checked + img
+	outline: 2px solid $DarkOrange
+
+.navbar, .footer
+	background-color: $DarkOrange
+	padding: 20px
+	@include box-shadow(0, 0, 20px, rgba($Black, .3), inset)
+
+.navbar
+	a
+		color: $Snow
+
+.footer
+	h1
+		color: $Snow
 
 table
 	min-height: 250px
@@ -40,3 +74,294 @@ a.dropdown-item.createCart
 	padding: 10px
 	margin-top: 20px
 	color: $FireBrick
+
+.error
+	padding: 1px
+	color: $FireBrick
+	font-size: 12px
+
+img.thumbnail
+	width: 200px
+
+.info
+	color: $Black
+	border: 1px solid $Black
+	padding: 30px 5px
+	margin-top: 20px
+	border-radius: 10px
+	@include transition(all, 0.7s, ease)
+	&:hover
+		@include transition(all, 0.7s, ease)
+		@include box-shadow(0, 0, 20px, rgba($Black, .3), inset)
+		border: 1px solid $Snow
+
+	.name
+		text-align: center
+
+	.category
+		background: $DarkOrange
+		color: $Snow
+		border-radius: 50%
+		height: 50px
+		width: 50px
+		text-align: center
+		display: inline-block
+		padding: 11px 5px
+		position: absolute
+		top: 5px
+		float: right
+		right: 0
+		@include transformRotate(45deg)
+
+	.image
+		text-align: center
+		padding: 10px 20px
+
+		img
+			width: 144px
+			height: 130px
+
+	.prices
+		width: 50%
+		margin-left: auto
+		margin-right: auto
+		padding: 20px
+		text-align: center
+		font-weight: bold
+
+		.regPrice
+			text-decoration: line-through
+			color: $Crimson
+			display: inline
+
+		.actPrice
+			margin-left: 20px
+			color: $LimeGreen
+			display: inline
+
+		.discount
+			width: 50px
+			height: 50px
+			background: $ForestGreen
+			color: $Snow
+			border-radius: 50%
+			text-align: center
+			display: inline-block
+			padding: 11px 5px
+			position: absolute
+			top: 281px
+			right: 43%
+
+.product_info
+	margin: 15px
+	padding: 15px
+
+	.category
+		color: $Black
+		h4
+			text-align: left
+
+	.image
+		text-align: center
+
+		img
+			width: 50%
+
+	.name
+		h4
+			text-align: left
+
+	.prices
+		width: 50%
+		font-weight: bold
+		font-size: 40px
+		margin-bottom: 5px
+
+		.regPrice
+			text-decoration: line-through
+			color: $Grey
+			display: inline
+			font-size: 20px
+
+		.actPrice
+			margin-left: 20px
+			color: $DarkOrange
+			display: inline
+			text-shadow: 0 0 1px rgba($Black, .8)
+
+		.discount
+			width: 50px
+			height: 50px
+			background: $ForestGreen
+			color: $Snow
+			font-size: 17px
+			border-radius: 50%
+			text-align: center
+			display: inline-block
+			padding: 11px 5px
+			position: absolute
+			top: 20px
+			left: -120px
+
+	.cartFunctional
+		button
+			font-size: 20px
+			font-weight: bold
+			padding: 1px 10px
+			border-radius: 0
+
+			&.decr
+				border-right: 0
+
+			&.incr
+				border-left: 0
+
+		button.decr, button.incr
+			width: 40px
+			height: 40px
+
+		button.add-to-cart
+			height: 40px
+			margin-left: 10px
+
+		input[type=number]
+			width: 40px
+			height: 40px
+			border: 1px solid rgba($Black, .4)
+			vertical-align: middle
+			text-align: center
+
+	h4.description
+		text-align: left
+
+.rdatez > input
+	width: 95%
+	display: block
+	text-transform: none
+	width: 100%
+	height: 42px
+	border-width: 0 0 1px
+	border-style: solid
+	border-color: #B6B6B6
+	font-weight: 400
+
+	&:focus, &:active
+		border-color: $accent
+		outline: 0 $imp
+
+.submit-form
+	margin: 1em auto
+	background: #FFFFFF
+	padding: 40px
+	box-shadow: 0 0 20px rgba(0,0,0,.25)
+	&.user
+		width: 50%
+label
+	display: block
+	position: relative
+	text-transform: uppercase
+	font-weight: 700
+	width: 100%
+	color: $secondary
+
+textarea
+	width: 100%
+
+input.form-control
+	display: block
+	text-transform: none
+	width: 100%
+	height: 42px
+	border-width: 0 0 1px
+	border-style: solid
+	border-color: #B6B6B6
+	font-weight: 400
+	color: $primary
+
+	&:focus, &:active
+		border-color: $accent
+		outline: none $imp
+		box-shadow: none $imp
+
+.password
+	display: block
+	position: relative
+	text-transform: uppercase
+	font-weight: 700
+	width: 100%
+	color: $secondary
+
+	&__input
+		display: block
+		text-transform: none
+		width: 100%
+		height: 42px
+		border-width: 0 0 1px
+		border-style: solid
+		border-color: #B6B6B6
+		font-weight: 400
+		color: $primary
+
+	&__confirm
+		display: block
+		text-transform: none
+		width: 100%
+		height: 42px
+		border-width: 0 0 1px
+		border-style: solid
+		border-color: #B6B6B6
+		font-weight: 400
+		color: $primary
+
+		&.notMatch
+			background-color: rgba($Red, .2)
+
+		&.match
+			background-color: rgba($Green, .2)
+
+		&:focus, &:active
+			border-color: $accent
+			outline: 0
+
+	i
+		cursor: pointer
+		position: absolute
+		bottom: 13px
+		right: 0
+		color: $scoreGreen
+		padding: 4px 8px
+		font-weight: 700
+		font-size: .8em
+
+	&__strength
+		position: absolute
+		width: 0%
+		height: 4px
+		bottom: -8px
+		left: 0
+		background: transparent
+		transition: all 300ms ease-in-out
+
+		&[data-score="null"]
+			width: 0
+			background: red
+
+		&[data-score="0"]
+			width: 5%
+			background: $scoreRed
+
+		&[data-score="1"]
+			width: 25%
+			background: $scoreRed
+
+		&[data-score="2"]
+			width: 50%
+			background: $scoreYellow
+
+		&[data-score="3"]
+			width: 75%
+			background: $scoreGreen
+
+		&[data-score="4"]
+			width: 100%
+			background: $scoreGreen

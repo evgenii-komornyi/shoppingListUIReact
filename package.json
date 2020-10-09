@@ -2,15 +2,12 @@
   "name": "shopping-list-ui",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -29,14 +26,29 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@opuscapita/react-dates": "^0.5.14",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "form-data": "^3.0.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "react": "^16.13.1",
     "react-currency-format": "^1.0.0",
+    "react-datez": "^1.4.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
+    "react-select": "^3.1.0",
+    "react-select-country-list": "^2.2.1",
     "reactstrap": "^8.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/evgenii-komornyi/shoppingListUIReact.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/evgenii-komornyi/shoppingListUIReact/issues"
+  },
+  "homepage": "https://github.com/evgenii-komornyi/shoppingListUIReact#readme"
 }

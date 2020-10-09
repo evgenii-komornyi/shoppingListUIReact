@@ -8,6 +8,11 @@
 	-o-transform: rotate3d($x, $y, $z, $a)
 	transform: rotate3d($x, $y, $z, $a)
 
+@mixin transformRotate($a)
+	transform: rotate($a)
+	-webkit-transform: rotate($a)
+	-moz-transform: rotate($a)
+
 @mixin border-radius($px)
 	-webkit-border-radius: $px
 	-moz-border-radius: $px

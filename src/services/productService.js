@@ -1,25 +1,37 @@
-import http from '../http-common';
+import http from './http-common';
 
 class ProductDataService {
-  getAll() {
-    return http.get("/allProducts");
-  }
+    getAll() {
+        return http.get(`/api/product/products`);
+    }
 
-  get(id) {
-    return http.get(`/product/${id}`);
-  }
+    get(id) {
+        return http.get(`/api/product/${id}`);
+    }
 
-  create(data) {
-    return http.post("/create", data);
-  }
+    getCategories() {
+        return http.get(`/api/category/categories`);
+    }
 
-  update(id, data) {
-    return http.put(`/product/${id}`, data);
-  }
+    create(data) {
+        return http.post(`/api/product/create`, data);
+    }
 
-  delete(id) {
-    return http.delete(`/product/${id}`);
-  }
+    update(id, data) {
+        return http.put(`/api/product/${id}`, data);
+    }
+
+    delete(id) {
+        return http.delete(`/api/product/${id}`);
+    }
+
+    upload(fileName, fileCategory, data) {
+        return http.post(`/api/upload/create?fileName=` + fileName + `&fileCategory=` + fileCategory, data);
+    }
+
+    getFiles() {
+        return http.get(`/api/upload/files`);
+    }
 }
 
 export default new ProductDataService();
